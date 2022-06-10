@@ -12,22 +12,14 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: Text("Accueil"),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-          ],
+          children: const <Widget>[],
         ),
-      ),
-      floatingActionButton: const FloatingActionButton(
-        onPressed: null,
-        tooltip: '',
-        child: Icon(Icons.add),
       ),
     );
   }
