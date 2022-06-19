@@ -1,3 +1,4 @@
+import 'package:detailing_app/pages/Appointments/new_appointment.dart';
 import 'package:flutter/material.dart';
 
 class MyAppointment extends StatefulWidget {
@@ -25,8 +26,13 @@ class _MyAppointmentState extends State<MyAppointment> {
           ],
         ),
       ),
-      floatingActionButton: const FloatingActionButton(
-        onPressed: null,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const NewAppointment()),
+          );
+        },
         tooltip: '',
         child: Icon(Icons.add),
       ),

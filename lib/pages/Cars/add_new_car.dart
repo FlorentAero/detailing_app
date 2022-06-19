@@ -12,9 +12,10 @@ class AddNewCar extends StatefulWidget {
 class _AddNewCarState extends State<AddNewCar> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController model = TextEditingController();
+  TextEditingController year = TextEditingController();
+  TextEditingController registration = TextEditingController();
   FirebaseApp defaultApp = Firebase.app();
-  CollectionReference voitures =
-      FirebaseFirestore.instance.collection('voitures');
+  CollectionReference cars = FirebaseFirestore.instance.collection('cars');
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,37 +25,58 @@ class _AddNewCarState extends State<AddNewCar> {
       ),
       body: Form(
           key: _formKey,
-          child: Column(
-            children: [
-              TextFormField(
-                controller: model,
-                decoration: const InputDecoration(hintText: 'Modèle'),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Veuillez renseigner ce champ.';
-                  }
-                  return null;
-                },
-              ),
-              ElevatedButton(
-                onPressed: () async {
-                  if (_formKey.currentState!.validate()) {
-                    await voitures.add({
-                      'model': model.text,
-                    });
-                    _formKey.currentState!.reset();
-                    Navigator.of(context).pop();
-                  }
-                },
-                child: const Text('Valider'),
-              ),
-            ],
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Column(
+              children: [
+                TextFormField(
+                  controller: model,
+                  decoration: const InputDecoration(hintText: 'Modèle'),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Veuillez renseigner ce champ.';
+                    }
+                    return null;
+                  },
+                ),
+                TextFormField(
+                  controller: year,
+                  decoration: const InputDecoration(hintText: 'Année'),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Veuillez renseigner ce champ.';
+                    }
+                    return null;
+                  },
+                ),
+                TextFormField(
+                  controller: registration,
+                  decoration:
+                      const InputDecoration(hintText: 'Immatriculation'),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Veuillez renseigner ce champ.';
+                    }
+                    return null;
+                  },
+                ),
+                ElevatedButton(
+                  onPressed: () async {
+                    if (_formKey.currentState!.validate()) {
+                      await cars.add({
+                        'model': model.text,
+                        'year': year.text,
+                        'registration': registration.text
+                      });
+                      _formKey.currentState!.reset();
+                      Navigator.of(context).pop();
+                    }
+                  },
+                  child: const Text('Valider'),
+                ),
+              ],
+            ),
           )),
-      floatingActionButton: const FloatingActionButton(
-        onPressed: null,
-        tooltip: '',
-        child: Icon(Icons.add),
-      ),
     );
   }
 }
