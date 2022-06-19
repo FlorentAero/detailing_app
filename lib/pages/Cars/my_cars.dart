@@ -36,20 +36,27 @@ class _MyCarsState extends State<MyCars> {
                       height: 50,
                       width: double.infinity,
                       child: Container(
-                        decoration: new BoxDecoration(
+                        decoration: BoxDecoration(
                             border: Border.all(color: Colors.black),
-                            color: Color.fromARGB(255, 249, 255, 193)),
-                        child: Column(
-                          children: [
-                            Row(
-                              children: [
-                                Text(document['model']),
-                                Text(document['year']),
-                                Text(document['registration'])
-                              ],
-                            ),
-                            SizedBox(height: 1, width: double.infinity)
-                          ],
+                            color: Color.fromARGB(255, 255, 238, 89)),
+                        child: Padding(
+                          padding:
+                              const EdgeInsets.only(left: 10.0, right: 10.0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Text("Modèle : " + document['model']),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Text("Année : " + document['year']),
+                                  Text("Immatriculation : " +
+                                      document['registration'])
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),

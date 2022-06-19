@@ -28,6 +28,7 @@ class _AddNewCarState extends State<AddNewCar> {
           child: Padding(
             padding: const EdgeInsets.all(10.0),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 TextFormField(
                   controller: model,
@@ -41,6 +42,7 @@ class _AddNewCarState extends State<AddNewCar> {
                 ),
                 TextFormField(
                   controller: year,
+                  maxLength: 4,
                   decoration: const InputDecoration(hintText: 'Année'),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -51,6 +53,7 @@ class _AddNewCarState extends State<AddNewCar> {
                 ),
                 TextFormField(
                   controller: registration,
+                  maxLength: 9,
                   decoration:
                       const InputDecoration(hintText: 'Immatriculation'),
                   validator: (value) {
@@ -72,7 +75,7 @@ class _AddNewCarState extends State<AddNewCar> {
                       Navigator.of(context).pop();
                     }
                   },
-                  child: const Text('Valider'),
+                  child: const Text('Ajouter'),
                 ),
               ],
             ),
