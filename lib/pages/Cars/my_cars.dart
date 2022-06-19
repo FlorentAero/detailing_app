@@ -1,3 +1,4 @@
+import 'package:detailing_app/pages/Cars/add_new_car.dart';
 import 'package:flutter/material.dart';
 
 class MyCars extends StatefulWidget {
@@ -13,7 +14,7 @@ class _MyCarsState extends State<MyCars> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text("Mes voitures"),
+        title: const Text("Mes voitures"),
       ),
       body: Center(
         child: Column(
@@ -25,10 +26,15 @@ class _MyCarsState extends State<MyCars> {
           ],
         ),
       ),
-      floatingActionButton: const FloatingActionButton(
-        onPressed: null,
-        tooltip: '',
-        child: Icon(Icons.add),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const AddNewCar()),
+          );
+        },
+        tooltip: 'Prendre rendez-vous',
+        child: const Icon(Icons.add),
       ),
     );
   }

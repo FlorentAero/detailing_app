@@ -13,7 +13,7 @@ class _MyAppointmentState extends State<MyAppointment> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text("Mes rendez-vous"),
+        title: const Text("Mes rendez-vous"),
       ),
       body: Center(
         child: Column(
