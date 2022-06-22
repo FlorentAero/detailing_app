@@ -2,8 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:flutter/cupertino.dart';
-
 
 class NewAppointment extends StatefulWidget {
   const NewAppointment({super.key});
@@ -17,7 +15,8 @@ class _NewAppointmentState extends State<NewAppointment> {
   TextEditingController description = TextEditingController();
   TextEditingController _date = TextEditingController();
   FirebaseApp defaultApp = Firebase.app();
-  CollectionReference Appointment = FirebaseFirestore.instance.collection('appointment');
+  CollectionReference Appointment =
+      FirebaseFirestore.instance.collection('appointment');
 
   @override
   Widget build(BuildContext context) {
@@ -37,8 +36,7 @@ class _NewAppointmentState extends State<NewAppointment> {
                   decoration: const InputDecoration(
                       hintText: 'Description',
                       labelText: 'Description',
-                      prefixIcon: Icon(Icons.newspaper_outlined)
-                  ),
+                      prefixIcon: Icon(Icons.newspaper_outlined)),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Veuillez renseigner ce champ.';
@@ -49,19 +47,19 @@ class _NewAppointmentState extends State<NewAppointment> {
                 TextFormField(
                   controller: _date,
                   decoration: const InputDecoration(
-                    icon: Icon(Icons.calendar_today_rounded),
-                    labelText: "Choisissez la date"
-                  ),
-                  onTap: () async{
+                      icon: Icon(Icons.calendar_today_rounded),
+                      labelText: "Choisissez la date"),
+                  onTap: () async {
                     DateTime? pickeddate = await showDatePicker(
                         context: context,
                         initialDate: DateTime.now(),
                         firstDate: DateTime(2022),
                         lastDate: DateTime(2100));
 
-                    if(pickeddate != null){
-                      setState((){
-                        _date.text = DateFormat('yyyy-MM-dd').format(pickeddate);
+                    if (pickeddate != null) {
+                      setState(() {
+                        _date.text =
+                            DateFormat('yyyy-MM-dd').format(pickeddate);
                       });
                     }
                   },
@@ -91,5 +89,3 @@ class _NewAppointmentState extends State<NewAppointment> {
     );
   }
 }
-
-

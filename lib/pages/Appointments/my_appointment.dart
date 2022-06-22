@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:detailing_app/pages/Appointments/new_appointment.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class MyAppointment extends StatefulWidget {
   const MyAppointment({super.key});
@@ -10,17 +11,21 @@ class MyAppointment extends StatefulWidget {
 }
 
 class _MyAppointmentState extends State<MyAppointment> {
+  var now = new DateFormat('yyyy-MM-dd').format(new DateTime.now());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text("Prendre rendez-vous"),
+        title: const Text("Mes rendez-vous"),
       ),
       body: Padding(
         padding: const EdgeInsets.all(10.0),
         child: StreamBuilder(
-            stream: FirebaseFirestore.instance.collection('appointment').snapshots(),
+            stream: FirebaseFirestore.instance
+                .collection('appointment')
+                .where('date', isGreaterThanOrEqualTo: now)
+                .snapshots(),
             builder:
                 (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
               if (!snapshot.hasData) {
@@ -38,16 +43,12 @@ class _MyAppointmentState extends State<MyAppointment> {
                       child: Container(
                         decoration: new BoxDecoration(
                             border: Border.all(color: Colors.black),
-                            color: Color.fromARGB(255, 249, 255, 193)),
+                            color: Color.fromARGB(255, 255, 238, 89)),
                         child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            Row(
-                              children: [
-                                Text(document['description']),
-                                Text(document['date']),
-                              ],
-                            ),
-                            SizedBox(height: 1, width: double.infinity)
+                            Text(document['description']),
+                            Text(document['date']),
                           ],
                         ),
                       ),
@@ -70,5 +71,3 @@ class _MyAppointmentState extends State<MyAppointment> {
     );
   }
 }
-
-
