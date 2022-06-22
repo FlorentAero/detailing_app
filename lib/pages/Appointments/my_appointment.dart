@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:detailing_app/pages/Appointments/new_appointment.dart';
 import 'package:flutter/material.dart';
 
@@ -14,16 +15,47 @@ class _MyAppointmentState extends State<MyAppointment> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
+        title: const Text("Prendre rendez-vous"),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-          ],
-        ),
+      body: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: StreamBuilder(
+            stream: FirebaseFirestore.instance.collection('appointment').snapshots(),
+            builder:
+                (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+              if (!snapshot.hasData) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              return ListView(
+                children: snapshot.data!.docs.map((DocumentSnapshot document) {
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 10.0),
+                    child: SizedBox(
+                      height: 50,
+                      width: double.infinity,
+                      child: Container(
+                        decoration: new BoxDecoration(
+                            border: Border.all(color: Colors.black),
+                            color: Color.fromARGB(255, 249, 255, 193)),
+                        child: Column(
+                          children: [
+                            Row(
+                              children: [
+                                Text(document['description']),
+                                Text(document['date']),
+                              ],
+                            ),
+                            SizedBox(height: 1, width: double.infinity)
+                          ],
+                        ),
+                      ),
+                    ),
+                  );
+                }).toList(),
+              );
+            }),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -32,6 +64,8 @@ class _MyAppointmentState extends State<MyAppointment> {
             MaterialPageRoute(builder: (context) => const NewAppointment()),
           );
         },
+        tooltip: 'Ajouter un rendez-vous',
+        child: const Icon(Icons.add),
       ),
     );
   }
