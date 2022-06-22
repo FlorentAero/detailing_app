@@ -14,7 +14,6 @@ class _MyAppointmentState extends State<MyAppointment> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text("Mes rendez-vous"),
       ),
       body: Center(
         child: Column(
@@ -33,9 +32,9 @@ class _MyAppointmentState extends State<MyAppointment> {
             MaterialPageRoute(builder: (context) => const NewAppointment()),
           );
         },
-        tooltip: '',
-        child: Icon(Icons.add),
       ),
     );
   }
 }
+
+
